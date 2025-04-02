@@ -36,3 +36,11 @@ Here’s a list of **beginner-friendly business metrics** that are essential for
 12. **Click-Through Rate (CTR)**  
     *Percentage of people who click on a link/ad* (clicks ÷ impressions).  
 
+13. **Daily Active Users (DAU) / Monthly Active Users (MAU)**  
+    *Measures user engagement* (e.g., 1,000 DAU means 1,000 users daily).  
+
+14. **Cost Per Lead (CPL)**  
+    *Average cost to generate a potential customer contact* (marketing spend ÷ leads).  
+
+15. **Average Revenue Per User (ARPU)**  
+    *Average revenue generated per customer* (total revenue ÷ active users).  
