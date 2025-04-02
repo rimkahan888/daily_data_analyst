@@ -18,5 +18,12 @@ Here’s a list of **beginner-friendly business metrics** that are essential for
 6. **Monthly Recurring Revenue (MRR)**  
    *Predictable revenue a business earns monthly* (common for subscriptions).  
 
+7. **Gross Margin**  
+   *Profit after subtracting product costs* (revenue - cost of goods sold).  
 
+8. **Net Promoter Score (NPS)**  
+   *Measures customer loyalty* (e.g., “How likely are you to recommend us?” scored 0-10).  
+
+9. **Return on Investment (ROI)**  
+   *Profitability of an investment* [(gain - cost) ÷ cost].  
 
