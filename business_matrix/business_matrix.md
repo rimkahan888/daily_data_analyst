@@ -27,3 +27,12 @@ Here’s a list of **beginner-friendly business metrics** that are essential for
 9. **Return on Investment (ROI)**  
    *Profitability of an investment* [(gain - cost) ÷ cost].  
 
+10. **Inventory Turnover**  
+    *How quickly inventory is sold and replaced* (e.g., high turnover = fast sales).  
+
+11. **Bounce Rate**  
+    *Percentage of visitors who leave a website without interacting* (e.g., 50% bounce rate).  
+
+12. **Click-Through Rate (CTR)**  
+    *Percentage of people who click on a link/ad* (clicks ÷ impressions).  
+
