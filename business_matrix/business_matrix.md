@@ -9,4 +9,14 @@ Here’s a list of **beginner-friendly business metrics** that are essential for
 3. **Churn Rate**  
    *Percentage of customers who stop using a product/service over a period* (e.g., 10% monthly churn).  
 
+4. **Conversion Rate**  
+   *Percentage of users who complete a desired action* (e.g., 5% of website visitors make a purchase).  
+
+5. **Retention Rate**  
+   *Percentage of customers who continue using a product/service over time* (opposite of churn).  
+
+6. **Monthly Recurring Revenue (MRR)**  
+   *Predictable revenue a business earns monthly* (common for subscriptions).  
+
+
 
