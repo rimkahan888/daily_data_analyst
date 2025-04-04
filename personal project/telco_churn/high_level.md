@@ -67,3 +67,18 @@ Below is a real-life-inspired scenario where a consultant leverages existing dat
      ```
      - Size: ~50 MB, stored in `s3://telcox/gold/churn_risk_mart/`.
 
+#### Step 3: Deliver and Enable Analysts
+- **Output**: Two standardized datasets:
+  - **`churn_fact`**: Granular, row-level data for deep dives (e.g., individual customer churn drivers).
+  - **`churn_risk_mart`**: Aggregated, ready for dashboards (e.g., churn rates by region/month).
+- **Access**: Analysts query via Snowflake or pull Parquet files into Power BI from S3.
+- **Documentation**: Simple schema notes (e.g., “`call_drop_count`: # of dropped calls per customer”)—self-service ready, per Dan’s “data as a product” (14:04-14:46).
+
+---
+
+### Outcome: New Possibilities and Problem Resolution
+#### Before Consultant
+- **Process**: Analysts manually exported CSV chunks, joined in Excel (hours per report), producing conflicting churn theories.
+- **Insight**: No clear view—e.g., “Is it price or network?” remained guesswork.
+- **Time**: Weeks per analysis, delaying action.
+
