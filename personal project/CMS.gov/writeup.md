@@ -94,5 +94,50 @@ Your pipeline leverages S3 as the storage backbone, with staging, Silver, and Go
   - Total Silver layer: **~10-12 MB** (slightly more due to splitting, less with compression).
 - **Purpose**: Cleaned, structured data ready for analytics, stored as Parquet files in S3.
 
+#### Gold Layer (Data Marts in S3)
+- **Folder**: `s3://your-bucket/gold/marts/`.
+- **Tools**: DuckDB for SQL joins, pandas for final tweaks.
+- **Process**: Create specific marts for analysis (e.g., ABC, churn, MRR/ARR):
+  1. **ABC Analysis** (e.g., high-cost claims):
+     ```python
+     abc_df = con.execute("""
+         SELECT f.CLM_ID, f.CLM_PMT_AMT, d.MONTH, d.YEAR
+         FROM 's3://your-bucket/silver/inpatient_star/inpatient_claims_fact.parquet' f
+         JOIN 's3://your-bucket/silver/inpatient_star/date_dim.parquet' d
+         ON f.CLM_FROM_DT = d.DATE_KEY
+     """).fetchdf()
+     abc_df['ABC_RANK'] = abc_df['CLM_PMT_AMT'].rank(ascending=False)
+     abc_df.to_parquet('s3://your-bucket/gold/marts/abc_analysis.parquet')
+     ```
+     - Size: ~5-8 MB (subset of fact + date).
+  2. **Churn** (e.g., patients not returning):
+     - Requires Beneficiary Summary linkage (not in Inpatient alone); assume repeated `DESYNPUF_ID` counts over years.
+     - Size: ~2-5 MB.
+  3. **MRR/ARR** (e.g., annualized revenue from claims):
+     ```python
+     arr_df = con.execute("""
+         SELECT d.YEAR, SUM(f.CLM_PMT_AMT) as ANNUAL_REVENUE
+         FROM 's3://your-bucket/silver/inpatient_star/inpatient_claims_fact.parquet' f
+         JOIN 's3://your-bucket/silver/inpatient_star/date_dim.parquet' d
+         ON f.CLM_FROM_DT = d.DATE_KEY
+         GROUP BY d.YEAR
+     """).fetchdf()
+     arr_df.to_parquet('s3://your-bucket/gold/marts/arr_analysis.parquet')
+     ```
+     - Size: Tiny, ~1 MB (aggregated).
+- **Total Gold Size**: ~10-15 MB across multiple marts, depending on analysis scope.
+- **Purpose**: Pre-joined, analysis-ready tables for Power BI dashboards.
 
+---
+
+### Step 3: Power BI Dashboard Integration
+- **Connect to S3**: Use Power BI’s **Parquet connector** or export Gold Parquet files locally:
+  - In Power BI: `Get Data > Parquet > s3://your-bucket/gold/marts/abc_analysis.parquet`.
+- **Showcase Skills**:
+  - **ABC Dashboard**: Bar chart of top-cost claims, slicer for year/month.
+  - **Churn Dashboard**: Line chart of patient retention (if linked to Beneficiary data), filter by provider.
+  - **ARR Dashboard**: Trend line of annual revenue, drill-down by DRG.
+- **Size Handling**: 10-15 MB is trivial for Power BI—loads in seconds, no performance issues.
+
+---
 
