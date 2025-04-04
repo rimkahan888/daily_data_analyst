@@ -23,3 +23,26 @@ You’re right—S3 is foundational for scalable data storage, and Parquet is a 
 
 ---
 
+### Step 2: Pipeline Plan with S3, DLT, DuckDB, and Pandas
+Your pipeline leverages S3 as the storage backbone, with staging, Silver, and Gold layers. Here’s how it flows:
+
+#### Staging Layer (Raw Data in S3)
+- **Folder**: `s3://your-bucket/staging/inpatient_claims/`.
+- **Format**: Store the initial CSV (42.5 MB) or convert it to Parquet (~10 MB) upfront.
+- **Tool**: Use **DLT (Data Load Tools)** to ingest the CSV into S3:
+  - DLT is a Python library for loading data with minimal setup. Example:
+    ```python
+    import dlt
+    pipeline = dlt.pipeline(
+        pipeline_name="inpatient_load",
+        destination="filesystem",
+        dataset_name="staging",
+        credentials={"aws_access_key_id": "...", "aws_secret_access_key": "..."}
+    )
+    pipeline.run("inpatient_claims.csv", table_name="inpatient_raw", write_disposition="replace")
+    ```
+  - Output: `s3://your-bucket/staging/inpatient_raw/inpatient_claims.parquet` (~10 MB).
+- **Purpose**: Raw, unprocessed data as a single table, preserving all 71 columns.
+
+
+
