@@ -19,3 +19,16 @@ Below is a real-life-inspired scenario where a consultant leverages existing dat
 
 ---
 
+### The Solution: Standardized Churn Analysis Datasets
+
+#### Step 1: Assess and Explore Existing Data
+- **Discovery**: You meet with stakeholders (marketing, ops, finance) and the data team, echoing Dan’s “first 90 days” approach (21:14-22:14).
+  - Marketing: “Are customers leaving due to high prices?”
+  - Ops: “Is it network outages?”
+  - Analysts: “We can’t join data fast enough to test either.”
+- **Data Inventory**: You catalog the silos:
+  - **Billing**: 10 GB, 2M rows (customer ID, plan cost, payment status, churn flag).
+  - **CRM**: 5 GB, 1.5M rows (customer ID, age, tickets, NPS scores).
+  - **Network**: 50 GB, 100M rows (customer ID, call drops, speed metrics).
+- **Possibility**: Combine these into a star schema to explore churn drivers (e.g., price sensitivity, service quality).
+
