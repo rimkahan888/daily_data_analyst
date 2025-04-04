@@ -156,5 +156,4 @@ Your pipeline leverages S3 as the storage backbone, with staging, Silver, and Go
 - **Pandas**: Flexible for scripting star schema logic.
 - **Power BI**: Showcases your analyst skills with actionable dashboards (e.g., cost trends, churn insights).
 
-You’re set to mobilize this pipeline anywhere with S3, and the small size means DuckDB/pandas handle it efficiently on modest hardware (e.g., a laptop with 8 GB RAM). For larger datasets (e.g., all 20 DE-SynPUF samples), scale to Spark or Snowflake later!
 
