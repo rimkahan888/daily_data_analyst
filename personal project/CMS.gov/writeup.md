@@ -141,3 +141,14 @@ Your pipeline leverages S3 as the storage backbone, with staging, Silver, and Go
 
 ---
 
+### Final Sizes and Pipeline Recap
+- **Staging (Parquet)**: ~10 MB in `s3://your-bucket/staging/`.
+- **Silver (Star Schema)**: ~10-12 MB in `s3://your-bucket/silver/`.
+- **Gold (Marts)**: ~10-15 MB in `s3://your-bucket/gold/`.
+- **Pipeline**:
+  - **DLT**: Loads CSV to S3 as Parquet.
+  - **DuckDB + pandas**: Wrangles into star schema (Silver), then joins for marts (Gold).
+  - **Power BI**: Visualizes Gold marts for dashboards.
+
+
+
