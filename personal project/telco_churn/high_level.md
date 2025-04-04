@@ -32,3 +32,38 @@ Below is a real-life-inspired scenario where a consultant leverages existing dat
   - **Network**: 50 GB, 100M rows (customer ID, call drops, speed metrics).
 - **Possibility**: Combine these into a star schema to explore churn drivers (e.g., price sensitivity, service quality).
 
+#### Step 2: Design and Build the Solution
+- **Platform**: Use Snowflake (cloud data warehouse) for its scalability and ease (per your S3+Parquet pipeline and the SQL Server-to-Snowflake example).
+- **Pipeline**:
+  1. **Staging**: Load raw data into S3 using DLT (as in your earlier plan):
+     - Billing → `s3://telcox/staging/billing_raw.parquet`.
+     - CRM → `s3://telcox/staging/crm_raw.parquet`.
+     - Network → `s3://telcox/staging/network_raw.parquet`.
+  2. **Silver Layer (Star Schema)**: Transform with DuckDB and pandas:
+     - **Fact Table**: `churn_fact`
+       ```sql
+       CREATE TABLE churn_fact AS
+       SELECT b.customer_id, b.churn_flag, b.plan_cost, b.payment_late_days,
+              c.nps_score, c.support_tickets, n.call_drop_count, n.avg_data_speed
+       FROM 's3://telcox/staging/billing_raw.parquet' b
+       LEFT JOIN 's3://telcox/staging/crm_raw.parquet' c ON b.customer_id = c.customer_id
+       LEFT JOIN 's3://telcox/staging/network_raw.parquet' n ON b.customer_id = n.customer_id;
+       ```
+       - Size: ~20 GB post-join, stored as Parquet in `s3://telcox/silver/churn_fact/`.
+     - **Dimension Tables**:
+       - `customer_dim`: `customer_id`, `age`, `region` (~2 MB).
+       - `time_dim`: `date_key`, `month`, `quarter` from billing dates (~1 MB).
+       - Stored in `s3://telcox/silver/dims/`.
+  3. **Gold Layer (Churn Mart)**: Pre-aggregate for analysts:
+     ```sql
+     CREATE TABLE churn_risk_mart AS
+     SELECT t.month, c.region, AVG(f.plan_cost) AS avg_cost, AVG(f.nps_score) AS avg_nps,
+            SUM(f.call_drop_count) AS total_drops, COUNT(CASE WHEN f.churn_flag = 1 THEN 1 END) AS churn_count,
+            COUNT(*) AS total_customers, (churn_count::FLOAT / total_customers) AS churn_rate
+     FROM 's3://telcox/silver/churn_fact/churn_fact.parquet' f
+     JOIN 's3://telcox/silver/dims/customer_dim.parquet' c ON f.customer_id = c.customer_id
+     JOIN 's3://telcox/silver/dims/time_dim.parquet' t ON f.date_key = t.date_key
+     GROUP BY t.month, c.region;
+     ```
+     - Size: ~50 MB, stored in `s3://telcox/gold/churn_risk_mart/`.
+
