@@ -82,3 +82,23 @@ Below is a real-life-inspired scenario where a consultant leverages existing dat
 - **Insight**: No clear view—e.g., “Is it price or network?” remained guesswork.
 - **Time**: Weeks per analysis, delaying action.
 
+#### After Consultant
+1. **Uncover Churn Drivers**:
+   - Analysts query `churn_risk_mart` in Power BI:
+     - Finding: Regions with >50 call drops/month have 8% churn vs. 3% elsewhere—network quality is a top driver.
+     - Viz: Bar chart of churn rate vs. call drops, filtered by region.
+2. **Spot Risks**:
+   - From `churn_fact`: Customers with low NPS (<5) and high plan costs (>$80) churn at 12%—price sensitivity compounds service issues.
+     - Viz: Scatter plot of NPS vs. cost, color-coded by churn flag.
+3. **New Vision**: 
+   - Marketing proposes targeted retention (e.g., discounts for high-drop areas), ops prioritizes network upgrades—data-driven decisions emerge.
+   - Power BI dashboard deployed in days, not weeks, showcasing your analyst skills (per your goal).
+
+#### Impact
+- **Resolution**: Churn root causes (network > price) clarified, reducing guesswork—5% quarterly loss now actionable.
+- **Efficiency**: Analysis drops from weeks to hours—standard datasets remove ETL grunt work.
+- **ROI**: TelcoX estimates $2M annual savings if churn drops 1%, justifying your $50K consulting fee.
+
+---
+
+
