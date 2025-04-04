@@ -44,5 +44,55 @@ Your pipeline leverages S3 as the storage backbone, with staging, Silver, and Go
   - Output: `s3://your-bucket/staging/inpatient_raw/inpatient_claims.parquet` (~10 MB).
 - **Purpose**: Raw, unprocessed data as a single table, preserving all 71 columns.
 
+#### Silver Layer (Star Schema in S3)
+- **Folder**: `s3://your-bucket/silver/inpatient_star/`.
+- **Tools**: Use **DuckDB** (lightweight, SQL-based) and **pandas** (Python data wrangling) to transform the staging Parquet into a star schema.
+- **Process**:
+  1. **Read Staging Data**:
+     ```python
+     import duckdb
+     import pandas as pd
+     con = duckdb.connect()
+     df = con.execute("SELECT * FROM 's3://your-bucket/staging/inpatient_raw/*.parquet'").fetchdf()
+     ```
+  2. **Build Star Schema** (based on earlier breakdown):
+     - **Fact Table**: `inpatient_claims_fact`
+       ```python
+       fact_df = df[['CLM_ID', 'DESYNPUF_ID', 'PRVDR_NUM', 'CLM_FROM_DT', 'CLM_THRU_DT', 
+                     'CLM_DRG_CD', 'CLM_PMT_AMT', 'CLM_UTLZTN_DAY_CNT']]
+       fact_df.to_parquet('inpatient_claims_fact.parquet')
+       ```
+     - **Dimension Tables**:
+       - `beneficiary_dim`: Link to Beneficiary Summary later; for now, just `DESYNPUF_ID`.
+       - `provider_dim`: `PRVDR_NUM`, `AT_PHYSN_NPI`.
+       - `date_dim`: Generate from `CLM_FROM_DT` (e.g., year, month):
+         ```python
+         date_df = pd.DataFrame({
+             'DATE_KEY': pd.to_datetime(df['CLM_FROM_DT']).astype(str).str.replace('-', ''),
+             'YEAR': pd.to_datetime(df['CLM_FROM_DT']).dt.year,
+             'MONTH': pd.to_datetime(df['CLM_FROM_DT']).dt.month
+         }).drop_duplicates()
+         date_df.to_parquet('date_dim.parquet')
+         ```
+       - `diagnosis_bridge`: Handle 10 codes:
+         ```python
+         diag_cols = [f'ICD9_DGNS_CD_{i}' for i in range(1, 11)]
+         diag_df = df[['CLM_ID'] + diag_cols].melt(id_vars=['CLM_ID'], value_name='ICD9_DGNS_CD')
+         diag_df = diag_df[diag_df['ICD9_DGNS_CD'].notnull()]
+         diag_df.to_parquet('inpatient_diagnosis_bridge.parquet')
+         ```
+       - `procedure_bridge`: Similar for 6 procedure codes.
+     - **Save to S3**: Use `s3fs` or DLT to write Parquet files back:
+       ```python
+       import s3fs
+       s3 = s3fs.S3FileSystem(anon=False)
+       fact_df.to_parquet('s3://your-bucket/silver/inpatient_star/inpatient_claims_fact.parquet')
+       ```
+- **Size**: 
+  - Fact table (~8 MB, core metrics).
+  - Dimensions (smaller, ~1-2 MB total).
+  - Total Silver layer: **~10-12 MB** (slightly more due to splitting, less with compression).
+- **Purpose**: Cleaned, structured data ready for analytics, stored as Parquet files in S3.
+
 
 
