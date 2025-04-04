@@ -102,3 +102,18 @@ Below is a real-life-inspired scenario where a consultant leverages existing dat
 ---
 
 
+### How It Ties to the Learning Point
+- **Standardized Datasets**: `churn_fact` and `churn_risk_mart` unify silos into a consistent, analyst-friendly format—echoing Dan’s push for accessible data products (12:12-12:46).
+- **Uncover Churn/Risks**: Analysts now explore granular (e.g., customer-level) and aggregated (e.g., regional) views to pinpoint churn drivers and risks, per the learning goal.
+- **Existing Data, New Possibilities**: No new data collected—just smarter use of billing, CRM, and network logs, proving Dan’s “mine rock for gold” insight (11:26-11:53).
+
+---
+
+### Real-Life Connection
+This mirrors real consulting gigs—like a telecom I’ve seen where a consultant built a churn model from fragmented billing and call logs, or Ben’s Snowflake migrations (27:03-27:46) enabling broader access. Your S3+Snowflake+DuckDB pipeline fits perfectly here, scaling this to TelcoX’s 2M customers effortlessly.
+
+#### For You
+- **Skill Showcase**: Deploy this in Power BI (e.g., churn trend dashboard) to demo your data analyst chops—standardized datasets are your deliverable, insights are the win.
+- **Scalability**: Cloud (Snowflake) handles 50 GB easily, avoiding SQL Server’s “multi-sprint ordeal” (30:26-31:26)—future-proof for bigger clients.
+
+This solution turns chaos into clarity, leveraging what’s there to solve a pressing problem—classic consultant value!
