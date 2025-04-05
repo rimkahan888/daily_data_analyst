@@ -371,4 +371,36 @@ Here are detailed study notes based on the Power BI questions provided in the im
 
 ---
 
+## **11. Practical Tips**
+- **How do you gather requirements for a Power BI report?**  
+  - Meet with stakeholders to understand their goals.
+  - Identify key metrics and KPIs they want to track.
+  - Determine the data sources and availability.
+  - Define the audience and their technical proficiency.
+  - Document requirements and get sign-off before development.
+
+- **What metrics would you consider for a sales report in Power BI?**  
+  - Total Sales Revenue
+  - Sales by Region/Product/Category
+  - Year-over-Year Growth
+  - Top Customers/Products
+  - Sales Trends Over Time
+  - Profit Margin
+
+- **How do you prioritize tasks when working on multiple Power BI reports?**  
+  - Prioritize based on business impact and deadlines.
+  - Focus on reports with the most urgent stakeholder needs.
+  - Break tasks into smaller milestones (e.g., data modeling, visuals, testing).
+  - Use project management tools to track progress.
+
+- **How do you ensure data accuracy in Power BI?**  
+  - Validate data at the source before loading.
+  - Use Power Query to clean and transform data.
+  - Cross-check calculations with source data.
+  - Test DAX measures and visuals for consistency.
+  - Involve stakeholders in the validation process.
+
+---
+
+These notes cover the majority of the questions from the images and provide a comprehensive overview of Power BI concepts. Let me know if you'd like to dive deeper into any specific topic!
 
