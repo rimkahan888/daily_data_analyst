@@ -264,4 +264,111 @@ Here are detailed study notes based on the Power BI questions provided in the im
 
 ---
 
+## **8. Troubleshooting and Performance**
+- **What is a "Data Refresh Error"?**  
+  A Data Refresh Error occurs when Power BI cannot update a dataset, often due to:
+  - Invalid credentials for the data source.
+  - Network issues or gateway downtime.
+  - Changes in the data source structure (e.g., renamed columns).
+
+- **How can you troubleshoot slow performance in Power BI reports?**  
+  - Optimize the data model by removing unused columns and aggregating data.
+  - Reduce the number of visuals on a page.
+  - Use DirectQuery or aggregations for large datasets.
+  - Check DAX calculations for inefficiencies (e.g., avoid nested iterators).
+  - Use the **Performance Analyzer** to identify slow visuals.
+
+- **What steps would you take if a report is not loading?**  
+  1. Check for errors in the data refresh or gateway connection.
+  2. Verify that the dataset size is within limits.
+  3. Use the Performance Analyzer to identify slow visuals.
+  4. Ensure the report is not overloaded with visuals or complex DAX.
+  5. Check for browser or network issues.
+
+- **What is a "Gateway Timeout"?**  
+  A Gateway Timeout occurs when the on-premises data gateway cannot process a request within the allotted time, often due to network latency or heavy load on the data source.
+
+- **What are some common errors in Power BI, and how do you resolve them?**  
+  - **Credential Errors**: Update credentials in the dataset settings.
+  - **Data Source Changes**: Adjust queries in Power Query to match the new structure.
+  - **Memory Limits**: Switch to DirectQuery or reduce dataset size.
+  - **DAX Errors**: Debug DAX formulas for syntax or logic issues.
+
+- **What is the "Performance Analyzer"?**  
+  The Performance Analyzer in Power BI Desktop measures the time taken by each visual to load, helping identify bottlenecks in report performance.
+
+---
+
+## **9. Advanced Topics**
+- **How do you create a time-based analysis in Power BI?**  
+  - Use a date table with columns for year, month, day, etc.
+  - Create relationships between the date table and fact tables.
+  - Use DAX for time intelligence (e.g., `TOTALYTD`, `DATESINPERIOD`).
+  - Visualize trends with line charts or time slicers.
+
+- **How can you integrate Power BI with other Microsoft products?**  
+  - **Excel**: Import data from Excel or export Power BI visuals to Excel.
+  - **SharePoint**: Embed Power BI reports in SharePoint pages.
+  - **Teams**: Share reports directly in Microsoft Teams.
+  - **Power Automate**: Automate workflows (e.g., trigger alerts based on data).
+
+- **What is Power Automate, and how does it relate to Power BI?**  
+  Power Automate is a Microsoft tool for automating workflows. In Power BI, it can be used to trigger actions based on data (e.g., send an email when a KPI exceeds a threshold).
+
+- **How do you use Azure Machine Learning with Power BI?**  
+  - Connect Power BI to Azure ML models via the Power Query Editor.
+  - Use the model to score or predict data within Power BI.
+  - Visualize the results in Power BI reports (e.g., predictive analytics).
+
+- **What role does AI play in Power BI?**  
+  - **Key Influencers**: Identify factors driving a metric.
+  - **Q&A Visual**: Allows natural language queries.
+  - **AI Insights**: Detects patterns, anomalies, and trends.
+  - **Automated ML**: Creates machine learning models directly in Power BI.
+
+- **How can Power BI support data storytelling?**  
+  - Use bookmarks to create a narrative flow.
+  - Add annotations or text boxes to highlight key insights.
+  - Design visuals to guide the audience through the data logically.
+  - Use drill-through for detailed analysis.
+
+---
+
+## **10. Best Practices and Miscellaneous**
+- **What are some strategies for optimizing Power BI performance?**  
+  - Minimize the number of visuals on a page.
+  - Use aggregations and DirectQuery for large datasets.
+  - Optimize DAX calculations (e.g., avoid unnecessary filters).
+  - Use a star schema for the data model.
+  - Schedule data refreshes during off-peak hours.
+
+- **How do you share Power BI reports?**  
+  - Publish to the Power BI Service and share via a workspace.
+  - Create a dashboard and share a link with users.
+  - Use Power BI Apps to distribute reports to a broader audience.
+  - Embed reports in applications using Power BI Embedded.
+
+- **How do you manage version control for Power BI reports?**  
+  - Use a version control system like Git with OneDrive or SharePoint to store `.pbix` files.
+  - Maintain a naming convention for report versions (e.g., `Report_v1.0`).
+  - Document changes in a changelog.
+
+- **How do you ensure that your Power BI reports are accessible?**  
+  - Use high-contrast colors for visuals.
+  - Add alt text to visuals for screen readers.
+  - Ensure reports are navigable using keyboard shortcuts.
+  - Test with accessibility tools to meet standards like WCAG.
+
+- **What are some common mistakes to avoid in Power BI?**  
+  - Overloading reports with too many visuals.
+  - Not optimizing the data model (e.g., keeping unused columns).
+  - Writing inefficient DAX calculations.
+  - Ignoring data refresh schedules.
+  - Not implementing proper security (e.g., RLS).
+
+- **What are the latest features in Power BI?**  
+  As of April 2025, I don’t have specific details on the latest features. However, Microsoft frequently updates Power BI with enhancements like improved AI capabilities, new visuals, better performance, and tighter integration with Azure services. You can check the official Power BI blog for the latest updates.
+
+---
+
 
