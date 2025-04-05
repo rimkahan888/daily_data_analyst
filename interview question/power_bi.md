@@ -94,5 +94,174 @@ Here are detailed study notes based on the Power BI questions provided in the im
   - Use data compression techniques in the source database.
 
 ---
+## **4. DAX (Data Analysis Expressions)**
+- **What is DAX?**  
+  DAX is a formula language used in Power BI to create calculated columns, measures, and custom tables. It’s similar to Excel formulas but designed for relational data models.
+
+- **What is the difference between a measure and a calculated column?**  
+  - **Calculated Column**: Computed row-by-row and stored in the data model (e.g., `Profit = Sales - Cost`). Useful for static calculations.
+  - **Measure**: Calculated dynamically at query time, often using aggregations (e.g., `Total Sales = SUM(Sales[Amount])`). Measures are not stored and are ideal for dashboards.
+
+- **What are some common DAX functions?**  
+  - **SUM**, **AVERAGE**, **MIN**, **MAX**: For aggregations.
+  - **CALCULATE**: Modifies the filter context of a calculation.
+  - **FILTER**: Applies row-level filters to a table.
+  - **DIVIDE**: Performs division with error handling for divide-by-zero.
+  - **DATEDIFF**, **DATEADD**: For time-based calculations.
+  - **ALL**, **ALLEXCEPT**: Remove or retain filters in calculations.
+
+- **How do you create a measure in Power BI?**  
+  1. In Power BI Desktop, go to the **Modeling** tab or the **Fields** pane.
+  2. Right-click a table and select **New Measure**.
+  3. Write the DAX expression (e.g., `Total Sales = SUM(Sales[Amount])`).
+  4. Use the measure in visuals like charts or tables.
+
+- **What is the CALCULATE function?**  
+  The **CALCULATE** function modifies the filter context of a measure. It allows you to apply or override filters in a calculation. Example:  
+  `Sales in 2023 = CALCULATE(SUM(Sales[Amount]), Sales[Year] = 2023)`.
+
+- **What is the use of the "What-If" parameter in Power BI?**  
+  A **What-If Parameter** allows users to create interactive scenarios by defining a variable (e.g., a discount rate) that can be adjusted using a slider in a report. It’s useful for forecasting and sensitivity analysis.
+
+- **What are aggregations in Power BI?**  
+  Aggregations pre-summarize data to improve query performance, especially for large datasets. They can be set up in the data model to store summarized data, which Power BI uses for faster calculations.
+
+---
+
+## **5. Power Query**
+- **What is Power Query?**  
+  Power Query is a data transformation and preparation tool in Power BI. It allows users to connect to data sources, clean, reshape, and transform data before loading it into the data model.
+
+- **What are the main steps in the ETL process?**  
+  ETL (Extract, Transform, Load) in Power Query includes:
+  - **Extract**: Connect to data sources and retrieve data.
+  - **Transform**: Clean and reshape data (e.g., remove duplicates, filter rows, pivot/unpivot, merge tables).
+  - **Load**: Import the transformed data into the Power BI data model.
+
+- **How do you handle missing values in Power Query?**  
+  - Replace missing values with a default (e.g., 0 or "Unknown").
+  - Remove rows with missing values.
+  - Use **Fill Down** or **Fill Up** to copy values from adjacent rows.
+  - Create conditional logic to handle missing data (e.g., if null, then use a specific value).
+
+- **What is the difference between "Append" and "Merge" queries?**  
+  - **Append**: Combines rows from two or more tables into a single table (stacking vertically).
+  - **Merge**: Joins tables based on a common key (similar to SQL JOINs), such as inner, left, or right joins.
+
+- **What is the Query Editor in Power BI?**  
+  The Query Editor is the interface in Power Query where users transform data. It provides tools for filtering, sorting, splitting columns, pivoting, and more, with a step-by-step record of transformations.
+
+---
+
+## **6. Visualizations in Power BI**
+- **What types of visualizations are available in Power BI?**  
+  Power BI offers a variety of visuals, including:
+  - Bar/Column charts
+  - Line/Area charts
+  - Pie/Donut charts
+  - Tables/Matrix
+  - Maps (e.g., ArcGIS, filled maps)
+  - Cards (for KPIs)
+  - Scatter/Bubble charts
+  - Custom visuals (from the Power BI marketplace).
+
+- **How do you create a dashboard in Power BI?**  
+  Dashboards are created in the Power BI Service (not Desktop):
+  1. Publish a report to the Power BI Service.
+  2. Pin visuals or entire report pages to a dashboard.
+  3. Arrange and customize the dashboard tiles.
+  4. Share the dashboard with others.
+
+- **What are slicers and how are they used?**  
+  Slicers are interactive filters in a report that allow users to filter data by selecting values (e.g., filter by year, region). They can be added via the **Visualizations** pane in Power BI Desktop.
+
+- **What is a tooltip in Power BI?**  
+  A tooltip is a small pop-up that appears when hovering over a visual, displaying additional details. Power BI allows custom tooltips (e.g., a mini-report page) to enhance interactivity.
+
+- **What is the difference between a report and a dashboard in Power BI?**  
+  - **Report**: A collection of visuals on one or more pages, created in Power BI Desktop, allowing for detailed analysis.
+  - **Dashboard**: A single-page overview in Power BI Service, composed of tiles pinned from reports, designed for high-level insights.
+
+- **What is a matrix visual, and how is it different from a table?**  
+  - **Table**: Displays data in a simple grid format with rows and columns.
+  - **Matrix**: A more advanced table that supports hierarchies, row/column totals, and drill-down functionality, often used for cross-tab analysis.
+
+- **How can you create a custom visual in Power BI?**  
+  - Use the Power BI Developer Tools (e.g., Power BI Visuals SDK) to code a custom visual using TypeScript and D3.js.
+  - Alternatively, download custom visuals from the **AppSource** marketplace and customize them in Power BI Desktop.
+
+- **How do you perform trend analysis in Power BI?**  
+  - Use a line chart to visualize trends over time.
+  - Add a trendline (available in some visuals like scatter charts).
+  - Use DAX to calculate trends (e.g., moving averages with `AVERAGEX`).
+  - Leverage built-in forecasting features in line charts.
+
+- **What is a KPI (Key Performance Indicator) in Power BI?**  
+  A KPI is a visual that displays a key metric (e.g., total sales), its target, and a trend over time. It’s often shown using a card or KPI visual with color indicators (e.g., green for on-target, red for below target).
+
+- **How do you create a waterfall chart in Power BI?**  
+  1. Select the **Waterfall Chart** from the Visualizations pane.
+  2. Add a category field (e.g., months) and a value field (e.g., profit).
+  3. Configure the chart to show increases, decreases, and totals, often used to analyze contributions to a total (e.g., revenue breakdown).
+
+- **How can you implement drill-through in Power BI?**  
+  - Add a drill-through field (e.g., Product Category) to a report page.
+  - Create a detailed report page for drill-through.
+  - Right-click a data point in a visual and select **Drill Through** to navigate to the detailed page filtered by the selected value.
+
+- **What is clustering in Power BI?**  
+  Clustering is an AI feature in Power BI that automatically groups similar data points in a scatter chart (e.g., customer segments based on spending and age).
+
+- **How do you perform segmentation in Power BI?**  
+  - Use slicers or filters to segment data interactively.
+  - Create DAX measures to define segments (e.g., high, medium, low sales).
+  - Use clustering or AI visuals for automated segmentation.
+
+- **What is the purpose of bookmarks in Power BI?**  
+  Bookmarks save the state of a report page (filters, slicers, visuals) so users can return to a specific view or create interactive storytelling experiences (e.g., toggling between views).
+
+- **What is the importance of storytelling in data visualization?**  
+  Storytelling in data visualization helps convey insights in a narrative format, making data more relatable and actionable for stakeholders. Power BI supports this through bookmarks, drill-through, and annotations.
+
+---
+
+## **7. Security and Administration**
+- **What is Row-Level Security (RLS)?**  
+  RLS restricts data access at the row level based on user roles. For example, a sales manager can only see data for their region.
+
+- **How can you implement RLS in Power BI?**  
+  1. In Power BI Desktop, go to the **Modeling** tab and select **Manage Roles**.
+  2. Create a role and define a DAX filter (e.g., `[Region] = "North"`).
+  3. Test the role using **View as Role**.
+  4. Publish the report and assign users to roles in the Power BI Service.
+
+- **What is the difference between data privacy levels in Power BI?**  
+  Data privacy levels define how data sources interact:
+  - **Public**: No restrictions on data access.
+  - **Organizational**: Data stays within the organization.
+  - **Private**: Strict isolation, preventing data from being combined with other sources.
+
+- **How can you secure data in Power BI?**  
+  - Implement RLS for user-specific data access.
+  - Use Azure Active Directory (AAD) for authentication.
+  - Encrypt data in transit and at rest (handled by Power BI Service).
+  - Set up data privacy levels for combined data sources.
+  - Use sensitivity labels to classify and protect reports.
+
+- **What are the best practices for data governance in Power BI?**  
+  - Define clear roles and responsibilities (e.g., data stewards).
+  - Use workspaces to manage access and collaboration.
+  - Implement RLS and data privacy settings.
+  - Document data sources, transformations, and DAX calculations.
+  - Regularly audit usage and access through Power BI Admin Portal.
+
+- **What is Azure Active Directory (AAD)?**  
+  AAD is Microsoft’s cloud-based identity and access management service. In Power BI, it’s used for user authentication, single sign-on (SSO), and managing access to reports and workspaces.
+
+- **What are the differences between Pro and Premium Power BI licenses?**  
+  - **Pro License**: Basic license for creating and sharing reports, with limited capacity and features.
+  - **Premium License**: Offers advanced features like larger dataset sizes, more frequent refreshes, dedicated capacity, and AI capabilities.
+
+---
 
 
